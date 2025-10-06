@@ -5,7 +5,7 @@
 
 ---
 
-## 🌀 The Problem
+##  The Problem
 
 Every monsoon, our communities in Indian cities face two floods: one of water, and another of misinformation.  
 
@@ -16,7 +16,7 @@ People who need help have no efficient way to connect with neighbours who can of
 
 ---
 
-## 🌈 Our Solution: VarshaRaksha
+##  Our Solution: VarshaRaksha
 
 **VarshaRaksha (meaning “Rain Protection”)** is a hyper-local, real-time web application designed to replace chaos with clarity during local emergencies.  
 
@@ -61,7 +61,7 @@ Instead of a single messy chat feed, VarshaRaksha structures communication into 
 
 ---
 
-## 🧠 Tech Stack
+##  Tech Stack
 
 | Category | Technologies |
 |-----------|--------------|
@@ -82,7 +82,7 @@ Instead of a single messy chat feed, VarshaRaksha structures communication into 
 
 ---
 
-## 🚀 Getting Started Locally
+##  Getting Started Locally
 
 ### 1. Clone the repository
 ```bash
