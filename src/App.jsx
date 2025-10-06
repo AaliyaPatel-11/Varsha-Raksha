@@ -14,6 +14,8 @@ import Feed from './components/Feed';
 import OfficialInfo from './components/OfficialInfo';
 import EmergencyHelp from './components/EmergencyHelp';
 import Profile from './components/Profile';
+import MapView from './components/MapView';
+import Chatbot from './components/Chatbot';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -67,6 +69,7 @@ function App() {
         <NavLink to="/">Community Feed</NavLink>
         <NavLink to="/official-info">Official Info</NavLink>
         <NavLink to="/emergency-help">Emergency Help</NavLink>
+        <NavLink to="/map">Live Map</NavLink>
       </nav>
       
       <main>
@@ -75,8 +78,10 @@ function App() {
           <Route path="/official-info" element={<OfficialInfo />} />
           <Route path="/emergency-help" element={<EmergencyHelp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/map" element={<MapView />} />
         </Routes>
       </main>
+       <Chatbot />
     </div>
   );
 }
