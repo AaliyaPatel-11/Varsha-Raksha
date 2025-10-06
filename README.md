@@ -1,90 +1,102 @@
-VarshaRaksha - Your Community's Monsoon Lifeline
-Live Demo: https://aaliyapatel-11.github.io/Varsha-Raksha/
+# VarshaRaksha 🌧️  
+**Your Community's Monsoon Lifeline**  
 
-The Problem
-Every monsoon, our communities in Indian cities face two floods: one of water, and another of misinformation. During local emergencies like flash floods, waterlogging, or power cuts, communication is chaotic. Critical alerts on WhatsApp are buried under a flood of unverified news, forwards, and panicked messages. People who need help have no efficient way to connect with neighbours who can offer it, and there is no single, trusted source of truth for the situation in your immediate vicinity.
+**Live Demo:** [https://aaliyapatel-11.github.io/Varsha-Raksha/](https://aaliyapatel-11.github.io/Varsha-Raksha/)
 
-Our Solution: VarshaRaksha
-VarshaRaksha (meaning "Rain Protection") is a hyper-local, real-time web application designed to replace chaos with clarity during local emergencies. It acts as a digital bridge, connecting residents to verified information and to each other, empowering communities to become more resilient and self-sufficient.
+---
 
-Instead of a single, messy chat feed, VarshaRaksha structures communication into actionable insights and provides a single source of truth for your neighborhood.
+## 🌀 The Problem
 
-Core Features
-Our platform is packed with features designed for real-world usability during a crisis:
+Every monsoon, our communities in Indian cities face two floods: one of water, and another of misinformation.  
 
-1. Real-Time, Geo-Tagged Community Feed
-Post, View, and Filter: Users can create posts and tag them as an Alert (🚨), a Request (🙏), or an Offer (❤️).
+During local emergencies like flash floods, waterlogging, or power cuts, communication becomes chaotic.  
+Critical alerts on WhatsApp are buried under a flood of unverified news, forwards, and panicked messages.  
 
-Image & Location Sharing: Enhance posts by uploading images and attaching a precise location, either automatically (via GPS) or by typing an address.
+People who need help have no efficient way to connect with neighbours who can offer it — and there’s no single, trusted source of truth for the situation in your immediate vicinity.
 
-"Today's Feed" Only: The main feed is always fresh, showing only posts from the current day to act as a daily briefing. Older posts are archived on the user's profile.
+---
 
-Timestamps: Every post is timestamped with the date and time.
+## 🌈 Our Solution: VarshaRaksha
 
-2. Live Interactive Map
-Visual Intelligence: A real-time map that displays all location-tagged community posts as interactive red pins.
+**VarshaRaksha (meaning “Rain Protection”)** is a hyper-local, real-time web application designed to replace chaos with clarity during local emergencies.  
 
-Instant Insight: Users can click on any pin to see the details of the post, allowing them to visually assess the situation in their area or along a potential travel route.
+It acts as a **digital bridge**, connecting residents to verified information and to each other — empowering communities to become more resilient and self-sufficient.
 
-3. Official Info Hub
-Live Local Weather: An integrated weather card that shows real-time conditions for the user's current location.
+Instead of a single messy chat feed, VarshaRaksha structures communication into actionable insights and provides a single source of truth for your neighborhood.
 
-AI-Powered News Feed: A "wow" feature that uses the Gemini API with Google Search grounding to fetch, summarize, and display the latest news articles about weather events in the local area (Hyderabad), complete with images, summaries, and direct links.
+---
 
-4. Full User & Post Management
-Secure Authentication: Simple and secure user onboarding with Google Sign-In, authorized for the live domain.
+## ⚙️ Core Features
 
-Personal Profile Page: A dedicated page where users can view all their past posts.
+### 1. Real-Time, Geo-Tagged Community Feed
+- **Post, View, and Filter:** Users can create posts and tag them as an Alert (🚨), a Request (🙏), or an Offer (❤️).  
+- **Image & Location Sharing:** Upload images and attach precise locations automatically via GPS or by typing an address.  
+- **“Today’s Feed” Only:** Always shows posts from the current day, acting as a daily briefing. Older posts move to the user’s profile.  
+- **Timestamps:** Every post includes date and time for instant context.
 
-Edit & Delete: Full control over their content, with the ability to edit the text of their posts or delete them entirely (which also removes the associated image from storage).
+---
 
-5. AI Safety Assistant ("Raksha Mitra")
-Instant Help: A floating chatbot powered by the Gemini API.
+### 2. Live Interactive Map
+- **Visual Intelligence:** Real-time map displays all location-tagged posts as interactive red pins.  
+- **Instant Insight:** Click any pin to view post details and assess the situation in your area or along a travel route.
 
-Safety First: "Raksha Mitra" is trained to provide friendly, concise, and practical answers to questions about monsoon safety, first-aid, and emergency preparedness.
+---
 
-Tech Stack
-Frontend: React.js (with Vite)
+### 3. Official Info Hub
+- **Live Local Weather:** Integrated weather card showing real-time conditions based on the user’s location.  
+- **AI-Powered News Feed:** Uses the Gemini API with Google Search grounding to fetch, summarize, and display the latest local weather news — complete with images, summaries, and direct links.
 
-Backend & Database: Google Firebase (Firestore, Authentication, Storage)
+---
 
-Mapping: React-Leaflet with OpenStreetMap
+### 4. Full User & Post Management
+- **Secure Authentication:** Google Sign-In for safe and simple onboarding.  
+- **Personal Profile Page:** View all your past posts in one place.  
+- **Edit & Delete:** Users can edit text or delete posts (and associated images) anytime.
 
-Geolocation APIs:
+---
 
-Browser Geolocation API
+### 5. AI Safety Assistant ("Raksha Mitra")
+- **Instant Help:** A floating chatbot powered by the Gemini API.  
+- **Safety First:** Raksha Mitra provides concise, practical advice about monsoon safety, first-aid, and emergency preparedness.
 
-OpenWeatherMap API (for live weather & geocoding)
+---
 
-Generative AI: Google Gemini API (for AI Chatbot and Live News Summaries)
+## 🧠 Tech Stack
 
-Deployment: GitHub Pages
+| Category | Technologies |
+|-----------|--------------|
+| **Frontend** | React.js (Vite) |
+| **Backend & Database** | Google Firebase (Firestore, Authentication, Storage) |
+| **Mapping** | React-Leaflet + OpenStreetMap |
+| **Geolocation APIs** | Browser Geolocation API, OpenWeatherMap API |
+| **Generative AI** | Google Gemini API |
+| **Deployment** | GitHub Pages |
 
-Team Members
-Patel Aaliya Mubashira (Full-Stack Developer)
+---
 
-Narra Navya Sri (Front-End Developer)
+## 👥 Team Members
+- **Patel Aaliya Mubashira** – Full-Stack Developer  
+- **Narra Navya Sri** – Front-End Developer  
+- **Pagala Bhavadeep Reddy** – Back-End Developer  
+- **R Jithin Sai** – Full-Stack Designer  
 
-Pagala Bhavadeep Reddy (Back-End Developer)
+---
 
-R Jithin Sai (Full-Stack Designer)
+## 🚀 Getting Started Locally
 
-Getting Started Locally
-Clone the repository:
-
-git clone [https://github.com/your-github-username/Varsha-Raksha.git](https://github.com/your-github-username/Varsha-Raksha.git)
+### 1. Clone the repository
+```bash
+git clone https://github.com/aaliyapatel-11/Varsha-Raksha.git
 cd Varsha-Raksha
-
-Install dependencies:
-
+```
+### 2. Install dependencies:
+```bash
 npm install
-
-Set up environment variables:
-
-Create a .env file in the root of the project.
-
-Add your Firebase, OpenWeatherMap, and Gemini API keys:
-
+```
+### 3. Set up environment variables:
+->Create a .env file in the root of the project.
+->Add your Firebase, OpenWeatherMap, and Gemini API keys:
+```bash
 VITE_API_KEY="your_firebase_api_key"
 VITE_AUTH_DOMAIN="..."
 VITE_PROJECT_ID="..."
@@ -93,7 +105,9 @@ VITE_MESSAGING_SENDER_ID="..."
 VITE_APP_ID="..."
 VITE_OPENWEATHER_API_KEY="your_openweathermap_api_key"
 VITE_GEMINI_API_KEY="your_gemini_api_key"
-
-Run the development server:
-
+```
+### 4. Run the development server:
+```bash
 npm run dev
+
+```
