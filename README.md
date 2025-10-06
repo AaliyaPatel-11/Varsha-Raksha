@@ -1,4 +1,4 @@
-# VarshaRaksha 🌧️  
+# VarshaRaksha 
 **Your Community's Monsoon Lifeline**  
 
 **Live Demo:** [https://aaliyapatel-11.github.io/Varsha-Raksha/](https://aaliyapatel-11.github.io/Varsha-Raksha/)
