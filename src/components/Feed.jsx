@@ -2,47 +2,39 @@
 
 import { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, query, orderBy, onSnapshot, where, Timestamp } from 'firebase/firestore';
-
-const formatTimestamp = (timestamp) => {
-  if (!timestamp) return '';
-  const date = timestamp.toDate();
-  const now = new Date();
-  
-  const isToday = date.getDate() === now.getDate() &&
-                  date.getMonth() === now.getMonth() &&
-                  date.getFullYear() === now.getFullYear();
-
-  if (isToday) {
-    return `Today at ${date.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
-  } else {
-    return date.toLocaleString('en-IN', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    });
-  }
-};
+import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Helper function to format the timestamp
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return 'Just now';
+    const date = timestamp.toDate();
+    const now = new Date();
+    const diffSeconds = Math.round((now - date) / 1000);
+
+    if (diffSeconds < 60) return `${diffSeconds}s ago`;
+    const diffMinutes = Math.round(diffSeconds / 60);
+    if (diffMinutes < 60) return `${diffMinutes}m ago`;
+    const diffHours = Math.round(diffMinutes / 60);
+    if (diffHours < 24) return `${diffHours}h ago`;
+    
+    const timeFormat = { hour: 'numeric', minute: 'numeric' };
+    const dateFormat = { month: 'short', day: 'numeric' };
+
+    return `${date.toLocaleDateString([], dateFormat)} at ${date.toLocaleTimeString([], timeFormat)}`;
+  };
+
   useEffect(() => {
-    // --- UPDATED LOGIC TO SHOW TODAY'S POSTS ONLY ---
+    // --- UPDATED: Calculate the timestamp from exactly 24 hours ago ---
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
-    // 1. Get the start of the current day
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const startOfToday = Timestamp.fromDate(today);
-
-    // 2. Create a query that filters posts created after the start of today
+    // --- UPDATED: Query for posts created in the last 24 hours ---
     const q = query(
-      collection(db, 'posts'), 
-      where('createdAt', '>=', startOfToday),
+      collection(db, 'posts'),
+      where('createdAt', '>=', twentyFourHoursAgo),
       orderBy('createdAt', 'desc')
     );
     
@@ -66,16 +58,17 @@ const Feed = () => {
       default: return '';
     }
   };
-  
+
   if (loading) {
-    return <p>Loading today's posts...</p>;
+    return <div className="loading-spinner"></div>;
   }
 
   return (
     <div className="feed-container">
       {posts.length === 0 ? (
-        <div className="post-card">
-          <p>No posts yet for today. Be the first to share an update!</p>
+        <div className="empty-feed-message">
+          <h3>No community posts in the last 24 hours.</h3>
+          <p>Be the first to share an update!</p>
         </div>
       ) : (
         posts.map((post) => (
@@ -84,7 +77,7 @@ const Feed = () => {
               <img src={post.authorPhotoURL} alt={post.authorName} className="profile-pic-small" />
               <div className="author-details">
                 <span className="author-name">{post.authorName}</span>
-                <span className="post-timestamp">&nbsp;·&nbsp;{formatTimestamp(post.createdAt)}</span>
+                <span className="post-timestamp">{formatTimestamp(post.createdAt)}</span>
               </div>
             </div>
             {post.imageUrl && (
@@ -100,11 +93,9 @@ const Feed = () => {
                   <span className="location-icon">📍</span>
                   <span className="location-name">{post.location.name}</span>
                   {post.location.lat && post.location.lon && (
-                    <>&nbsp;
-                      <a href={`https://www.google.com/maps?q=${post.location.lat},${post.location.lon}`} target="_blank" rel="noopener noreferrer" className="location-link">
-                        (View on Map)
-                      </a>
-                    </>
+                    <a href={`https://www.google.com/maps?q=${post.location.lat},${post.location.lon}`} target="_blank" rel="noopener noreferrer" className="location-link">
+                       (View on Map)
+                    </a>
                   )}
                 </div>
               )}

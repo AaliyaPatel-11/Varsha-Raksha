@@ -166,7 +166,7 @@ body {
 }
 
 /* --- Post Form & Feed --- */
-.post-form, .post-card, .weather-card, .announcement-card, .contact-card {
+.post-form, .post-card, .weather-card, .announcement-card, .contact-card, .news-card {
   background-color: var(--surface-color);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -195,6 +195,22 @@ body {
   gap: 20px;
 }
 
+/* NEW: Empty Feed Message */
+.empty-feed-message {
+  background-color: var(--surface-color);
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+.empty-feed-message h3 {
+  margin: 0 0 10px 0;
+}
+.empty-feed-message p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
 .post-card {
   padding: 20px;
   text-align: left;
@@ -214,8 +230,21 @@ body {
   object-fit: cover; 
 }
 
+.author-details {
+  display: flex;
+  align-items: baseline; 
+  flex-wrap: wrap; 
+  gap: 0.5ch; 
+}
+
 .author-name {
   font-weight: bold;
+  color: var(--text-primary);
+}
+
+.post-timestamp {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
 }
 
 .post-image {
@@ -316,6 +345,19 @@ input[type="file"]::file-selector-button {
 input[type="file"]::file-selector-button:hover {
   background-color: var(--border-color);
 }
+
+.location-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.location-icon { font-size: 1rem; }
+.location-name { font-weight: 500; }
+.location-link { font-size: 0.85rem; color: var(--primary-blue); text-decoration: none; font-weight: 600; }
+.location-link:hover { text-decoration: underline; }
+
 
 /* --- Official Info Page Styles --- */
 .weather-card { padding: 20px; margin-bottom: 30px; }

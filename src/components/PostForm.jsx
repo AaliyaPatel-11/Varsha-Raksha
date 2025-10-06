@@ -31,7 +31,6 @@ const PostForm = () => {
         setLocationStatus('Fetching address...');
         const { latitude, longitude } = position.coords;
         const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
-        // CORRECTED: URL now uses https://
         const reverseGeocodeUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
 
         try {
@@ -45,7 +44,6 @@ const PostForm = () => {
             lon: longitude,
             name: locationName,
           });
-
           setManualLocation(locationName);
           setLocationStatus(`Location attached: ${locationName}`);
         } catch (err) {
@@ -67,37 +65,25 @@ const PostForm = () => {
     setError('');
     let finalLocation = null;
 
-    if (manualLocation.trim()) {
+    if (manualLocation.trim() && (!location || manualLocation.trim() !== location.name)) {
       setLocationStatus(`Geocoding "${manualLocation.trim()}"...`);
       const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
-      // CORRECTED: URL uses https:// and is more robust (no hardcoded city)
-      const geocodeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(manualLocation.trim())}&limit=5&appid=${apiKey}`;
+      const geocodeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(manualLocation.trim())}&limit=1&appid=${apiKey}`;
       
       try {
         const response = await fetch(geocodeUrl);
-        if (!response.ok) throw new Error('Failed to geocode address.');
+        if (!response.ok) throw new Error('API request failed');
         const data = await response.json();
-
         if (data && data.length > 0) {
-          const bestMatch = data.find(d => d.country === 'IN') || data[0];
-          finalLocation = {
-            name: manualLocation.trim(),
-            lat: bestMatch.lat,
-            lon: bestMatch.lon,
-          };
+          finalLocation = { name: data[0].name, lat: data[0].lat, lon: data[0].lon };
         } else {
-          // If no location is found, inform the user but still allow the post
-          setError(`Could not find coordinates for "${manualLocation.trim()}". Post will be saved with text location only.`);
           finalLocation = { name: manualLocation.trim(), lat: null, lon: null };
         }
       } catch (err) {
         console.error("Geocoding failed:", err);
-        setError('Could not find that location. Please check spelling.');
-        // Stop the submission if geocoding fails badly
-        setIsUploading(false);
-        return; 
+        finalLocation = { name: manualLocation.trim(), lat: null, lon: null };
       }
-    } else if (location) {
+    } else {
       finalLocation = location;
     }
 
@@ -109,7 +95,6 @@ const PostForm = () => {
         const snapshot = await uploadBytes(imageRef, imageFile);
         imageUrl = await getDownloadURL(snapshot.ref);
       }
-
       await addDoc(collection(db, 'posts'), {
         authorId: uid,
         authorName: displayName,
@@ -167,10 +152,10 @@ const PostForm = () => {
           <button type="submit" onClick={(e) => handleSubmit(e, 'Alert')} className="btn alert" disabled={!content.trim() || isUploading}>
             {isUploading ? 'Posting...' : 'Post Alert'}
           </button>
-           <button type="submit" onClick={(e) => handleSubmit(e, 'Request')} className="btn request" disabled={!content.trim() || isUploading}>
+          <button type="submit" onClick={(e) => handleSubmit(e, 'Request')} className="btn request" disabled={!content.trim() || isUploading}>
             {isUploading ? 'Posting...' : 'Post Request'}
           </button>
-           <button type="submit" onClick={(e) => handleSubmit(e, 'Offer')} className="btn offer" disabled={!content.trim() || isUploading}>
+          <button type="submit" onClick={(e) => handleSubmit(e, 'Offer')} className="btn offer" disabled={!content.trim() || isUploading}>
             {isUploading ? 'Posting...' : 'Post Offer'}
           </button>
         </div>
