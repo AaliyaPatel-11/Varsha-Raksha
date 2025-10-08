@@ -1,113 +1,133 @@
-# VarshaRaksha 
-**Your Community's Monsoon Lifeline**  
-
-**Live Demo:** [https://aaliyapatel-11.github.io/Varsha-Raksha/](https://aaliyapatel-11.github.io/Varsha-Raksha/)
+# 🌩️ AIGNITE 2K25
+### Powered by MLSC
 
 ---
 
-##  The Problem
+## 🚀 Project Title  
+# **VarshaRaksha**
 
-Every monsoon, our communities in Indian cities face two floods: one of water, and another of misinformation.  
-
-During local emergencies like flash floods, waterlogging, or power cuts, communication becomes chaotic.  
-Critical alerts on WhatsApp are buried under a flood of unverified news, forwards, and panicked messages.  
-
-People who need help have no efficient way to connect with neighbours who can offer it — and there’s no single, trusted source of truth for the situation in your immediate vicinity.
+*A hyper-local web app designed to enhance community resilience during monsoons by providing real-time alerts, AI-powered news, and a live map.*
 
 ---
 
-##  Our Solution: VarshaRaksha
+## 📖 Project Description  
 
-**VarshaRaksha (meaning “Rain Protection”)** is a hyper-local, real-time web application designed to replace chaos with clarity during local emergencies.  
-
-It acts as a **digital bridge**, connecting residents to verified information and to each other — empowering communities to become more resilient and self-sufficient.
-
-Instead of a single messy chat feed, VarshaRaksha structures communication into actionable insights and provides a single source of truth for your neighborhood.
-
----
-
-## ⚙️ Core Features
-
-### 1. Real-Time, Geo-Tagged Community Feed
-- **Post, View, and Filter:** Users can create posts and tag them as an Alert (🚨), a Request (🙏), or an Offer (❤️).  
-- **Image & Location Sharing:** Upload images and attach precise locations automatically via GPS or by typing an address.  
-- **“Today’s Feed” Only:** Always shows posts from the current day, acting as a daily briefing. Older posts move to the user’s profile.  
-- **Timestamps:** Every post includes date and time for instant context.
+### ✨ Problem Statement  
+Every monsoon, communities in Indian cities face two floods: one of water, and another of misinformation.  
+During local emergencies like flash floods or power cuts, critical alerts on WhatsApp are buried under a flood of unverified news and panicked messages.  
+There is no single, trusted source of truth — and people who need help have no efficient way to connect with neighbours who can offer it.
 
 ---
 
-### 2. Live Interactive Map
-- **Visual Intelligence:** Real-time map displays all location-tagged posts as interactive red pins.  
-- **Instant Insight:** Click any pin to view post details and assess the situation in your area or along a travel route.
+### 💡 Proposed Solution  
+**VarshaRaksha** (meaning *“Rain Protection”*) is a hyper-local, real-time web application that replaces chaos with clarity.  
+It acts as a digital bridge, connecting residents to verified information and each other.  
+
+Instead of a single messy chat feed, **VarshaRaksha** structures communication into three actionable categories:  
+- ⚠️ **Alerts:** Verified incidents like flooding or roadblocks.  
+- 🙋‍♂️ **Requests:** Posts from people needing help.  
+- 🤝 **Offers:** Help or aid offered by others.  
+
+This transforms a noisy chat group into an organized, life-saving tool.
 
 ---
 
-### 3. Official Info Hub
-- **Live Local Weather:** Integrated weather card showing real-time conditions based on the user’s location.  
-- **AI-Powered News Feed:** Uses the Gemini API with Google Search grounding to fetch, summarize, and display the latest local weather news — complete with images, summaries, and direct links.
+## 🎯 Target Users / Use Cases  
+
+**Primary Users:**  
+Residents of urban and suburban communities, especially in areas prone to monsoon-related disruptions (e.g., Hyderabad).
+
+**Use Cases:**  
+1. 🌧️ A resident can post an **Alert** with a photo and location to report a waterlogged street.  
+2. 💧 An elderly resident can post a **Request** for drinking water during a supply cut, which a neighbour can respond to.  
+3. 📰 Anyone can check the **Official Info** page to get a live, AI-generated summary of the day's weather news before stepping out.
 
 ---
 
-### 4. Full User & Post Management
-- **Secure Authentication:** Google Sign-In for safe and simple onboarding.  
-- **Personal Profile Page:** View all your past posts in one place.  
-- **Edit & Delete:** Users can edit text or delete posts (and associated images) anytime.
+## 🔬 Methodology  
+
+### 1️⃣ Research & Ideation  
+- Identified critical gaps in hyper-local communication during emergencies based on real flood experiences in Hyderabad.  
+- Brainstormed a structured, real-time, and location-aware communication solution.  
+
+### 2️⃣ Design  
+- Prototyped the core **UI/UX** focusing on clarity and accessibility in emergencies.  
+- Designed a scalable architecture with **Firebase** to ensure real-time capabilities.  
+
+### 3️⃣ Develop  
+- Built using **React (with Vite)** for the frontend and **Firebase** for backend & authentication.  
+- Integrated **Google Gemini API** for AI-powered summaries, **OpenWeatherMap** for weather data, and **React-Leaflet** for live mapping.  
+
+### 4️⃣ Test  
+- Conducted continuous manual testing and debugging to ensure smooth functionality.  
+- Verified that the deployed version is stable and secure for users.  
+
+### 5️⃣ Deploy  
+- Hosted final demo using **GitHub Pages**.  
+- Configured **GitHub Actions** & **Secrets** for secure, automated deployment.
 
 ---
 
-### 5. AI Safety Assistant ("Raksha Mitra")
-- **Instant Help:** A floating chatbot powered by the Gemini API.  
-- **Safety First:** Raksha Mitra provides concise, practical advice about monsoon safety, first-aid, and emergency preparedness.
+## 🔮 Future Scope  
+
+- 🗺️ **Safe Route Finder:** Suggest safe travel routes using map-based community alerts.  
+- 🔔 **Push Notifications:** Real-time alerts for high-priority incidents nearby.  
+- 📴 **Offline Mode:** Lightweight offline mode with emergency info access during outages.  
 
 ---
 
-##  Tech Stack
+## 👥 Team Details  
 
-| Category | Technologies |
-|-----------|--------------|
-| **Frontend** | React.js (Vite) |
-| **Backend & Database** | Google Firebase (Firestore, Authentication, Storage) |
-| **Mapping** | React-Leaflet + OpenStreetMap |
-| **Geolocation APIs** | Browser Geolocation API, OpenWeatherMap API |
-| **Generative AI** | Google Gemini API |
-| **Deployment** | GitHub Pages |
+### **Team Name:** Dev Ignite  
 
----
-
-## 👥 Team Members
-- **Patel Aaliya Mubashira** – Full-Stack Developer  
-- **Narra Navya Sri** – Front-End Developer  
-- **Pagala Bhavadeep Reddy** – Back-End Developer  
-- **R Jithin Sai** – Full-Stack Designer  
+| Name | Role | Email |
+|------|------|-------|
+| **Patel Aaliya Mubashira** | Full-Stack Developer | member1@example.com |
+| **Narra Navya Sri** | Front-End Developer | member2@example.com |
+| **Pagala Bhavadeep Reddy** | Back-End Developer | member3@example.com |
+| **R Jithin Sai** | Full-Stack Designer | member4@example.com |
 
 ---
 
-##  Getting Started Locally
+## 🛠️ Technology Stack  
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/aaliyapatel-11/Varsha-Raksha.git
-cd Varsha-Raksha
-```
-### 2. Install dependencies:
-```bash
-npm install
-```
-### 3. Set up environment variables:
-->Create a .env file in the root of the project.
-->Add your Firebase, OpenWeatherMap, and Gemini API keys:
-```bash
-VITE_API_KEY="your_firebase_api_key"
-VITE_AUTH_DOMAIN="..."
-VITE_PROJECT_ID="..."
-VITE_STORAGE_BUCKET="..."
-VITE_MESSAGING_SENDER_ID="..."
-VITE_APP_ID="..."
-VITE_OPENWEATHER_API_KEY="your_openweathermap_api_key"
-VITE_GEMINI_API_KEY="your_gemini_api_key"
-```
-### 4. Run the development server:
-```bash
-npm run dev
+- **Frontend:** React.js (with Vite)  
+- **Backend & Database:** Firebase (Firestore, Authentication, Storage)  
+- **Mapping:** React-Leaflet & OpenStreetMap  
+- **Generative AI:** Google Gemini API  
+- **External APIs:** OpenWeatherMap API  
+- **Deployment:** GitHub Pages  
 
-```
+---
+
+## 📹 Demonstration Video  
+
+▶️ [**Demo Video**](https://your-demo-video-link.com)
+
+---
+
+## 🌐 Deployment  
+
+🔗 **Live Demo:** [https://aaliyapatel-11.github.io/Varsha-Raksha/](https://aaliyapatel-11.github.io/Varsha-Raksha/)
+
+---
+
+## 🖼️ Assets / Screenshots  
+
+### 🧭 Community Feed Page  
+![Community Feed Screenshot](#)
+
+### 🗺️ Live Map Page  
+![Live Map Screenshot](#)
+
+### 📰 Official Info Page  
+![Official Info Screenshot](#)
+
+---
+
+## 🏆 Hackathon  
+
+**Event:** AIGNITE 2K25  
+**Organized by:** MLSC  
+
+---
