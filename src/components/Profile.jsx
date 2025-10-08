@@ -13,13 +13,28 @@ const Profile = () => {
   const [editingPost, setEditingPost] = useState(null);
   const [responseTexts, setResponseTexts] = useState({});
 
-  const handleLike = async (postId, currentLikes) => {
+  const handleVote = async (post, voteType) => {
     const userId = auth.currentUser.uid;
-    const postRef = doc(db, 'posts', postId);
-    const userHasLiked = currentLikes?.includes(userId);
-    await updateDoc(postRef, {
-      likes: userHasLiked ? arrayRemove(userId) : arrayUnion(userId)
-    });
+    const postRef = doc(db, 'posts', post.id); // Correctly use post.id
+    const likes = post.likes || [];
+    const disagrees = post.disagrees || [];
+    const userHasLiked = likes.includes(userId);
+    const userHasDisagreed = disagrees.includes(userId);
+
+    const updatePayload = {};
+
+    if (voteType === 'agree') {
+      updatePayload.likes = userHasLiked ? arrayRemove(userId) : arrayUnion(userId);
+      if (!userHasLiked && userHasDisagreed) {
+        updatePayload.disagrees = arrayRemove(userId);
+      }
+    } else if (voteType === 'disagree') {
+      updatePayload.disagrees = userHasDisagreed ? arrayRemove(userId) : arrayUnion(userId);
+      if (!userHasDisagreed && userHasLiked) {
+        updatePayload.likes = arrayRemove(userId);
+      }
+    }
+    await updateDoc(postRef, updatePayload);
   };
 
   const handleAddResponse = async (e, postId) => {
@@ -61,19 +76,29 @@ const Profile = () => {
   };
   
   useEffect(() => {
-    if (!auth.currentUser) return;
-    const q = query(collection(db, 'posts'), where('authorId', '==', auth.currentUser.uid), orderBy('createdAt', 'desc'));
+    if (!auth.currentUser) {
+      setLoading(false);
+      return;
+    };
+
+    const q = query(
+      collection(db, 'posts'), 
+      where('authorId', '==', auth.currentUser.uid)
+    );
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const postsData = [];
       querySnapshot.forEach((doc) => postsData.push({ ...doc.data(), id: doc.id }));
+      postsData.sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
       setMyPosts(postsData);
       setLoading(false);
     }, (err) => {
-      setError("Failed to load your posts.");
+      console.error("Firestore error:", err);
+      setError("Failed to load your posts. Please check your connection or try again.");
       setLoading(false);
     });
     return () => unsubscribe();
-  }, []);
+  }, [auth.currentUser]);
 
   if (loading) return <div className="loading-spinner"></div>;
   if (error) return <p className="error-message">{error}</p>;
@@ -88,6 +113,7 @@ const Profile = () => {
           {myPosts.map((post) => {
             const userId = auth.currentUser.uid;
             const userHasLiked = post.likes?.includes(userId);
+            const userHasDisagreed = post.disagrees?.includes(userId);
 
             return (
               <div key={post.id} className="post-card">
@@ -122,8 +148,10 @@ const Profile = () => {
                 <div className="interactive-section">
                   {post.category === 'Alert' && (
                     <div className="likes-section">
-                      <button onClick={() => handleLike(post.id, post.likes)} className={`like-btn ${userHasLiked ? 'liked' : ''}`}>👍 Agree</button>
-                      <span className="like-count">{post.likes?.length || 0} people agree</span>
+                      <button onClick={() => handleVote(post, 'agree')} className={`like-btn ${userHasLiked ? 'liked' : ''}`}>👍 Agree</button>
+                      <span className="like-count">{post.likes?.length || 0}</span>
+                      <button onClick={() => handleVote(post, 'disagree')} className={`disagree-btn ${userHasDisagreed ? 'disagreed' : ''}`}>👎 Disagree</button>
+                      <span className="disagree-count">{post.disagrees?.length || 0}</span>
                     </div>
                   )}
 

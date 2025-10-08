@@ -9,21 +9,34 @@ const Feed = () => {
   const [loading, setLoading] = useState(true);
   const [responseTexts, setResponseTexts] = useState({});
 
-  const handleLike = async (postId, currentLikes) => {
+  const handleVote = async (post, voteType) => {
     const userId = auth.currentUser.uid;
-    const postRef = doc(db, 'posts', postId);
-    const userHasLiked = currentLikes?.includes(userId);
+    const postRef = doc(db, 'posts', post.id);
+    const likes = post.likes || [];
+    const disagrees = post.disagrees || [];
+    const userHasLiked = likes.includes(userId);
+    const userHasDisagreed = disagrees.includes(userId);
 
-    await updateDoc(postRef, {
-      likes: userHasLiked ? arrayRemove(userId) : arrayUnion(userId)
-    });
+    const updatePayload = {};
+
+    if (voteType === 'agree') {
+      updatePayload.likes = userHasLiked ? arrayRemove(userId) : arrayUnion(userId);
+      if (!userHasLiked && userHasDisagreed) {
+        updatePayload.disagrees = arrayRemove(userId);
+      }
+    } else if (voteType === 'disagree') {
+      updatePayload.disagrees = userHasDisagreed ? arrayRemove(userId) : arrayUnion(userId);
+      if (!userHasDisagreed && userHasLiked) {
+        updatePayload.likes = arrayRemove(userId);
+      }
+    }
+    await updateDoc(postRef, updatePayload);
   };
 
   const handleAddResponse = async (e, postId) => {
     e.preventDefault();
     const responseText = responseTexts[postId]?.trim();
     if (!responseText) return;
-
     const { uid, displayName } = auth.currentUser;
     const postRef = doc(db, 'posts', postId);
     const newResponse = {
@@ -41,27 +54,19 @@ const Feed = () => {
     const date = timestamp.toDate();
     const now = new Date();
     const diffSeconds = Math.round((now - date) / 1000);
-
     if (diffSeconds < 60) return `${diffSeconds}s ago`;
     const diffMinutes = Math.round(diffSeconds / 60);
     if (diffMinutes < 60) return `${diffMinutes}m ago`;
     const diffHours = Math.round(diffMinutes / 60);
     if (diffHours < 24) return `${diffHours}h ago`;
-    
     const timeFormat = { hour: 'numeric', minute: 'numeric' };
     const dateFormat = { month: 'short', day: 'numeric' };
-
     return `${date.toLocaleDateString([], dateFormat)} at ${date.toLocaleTimeString([], timeFormat)}`;
   };
 
   useEffect(() => {
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-    const q = query(
-      collection(db, 'posts'),
-      where('createdAt', '>=', twentyFourHoursAgo),
-      orderBy('createdAt', 'desc')
-    );
-    
+    const q = query(collection(db, 'posts'), where('createdAt', '>=', twentyFourHoursAgo), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const postsData = [];
       querySnapshot.forEach((doc) => postsData.push({ ...doc.data(), id: doc.id }));
@@ -93,6 +98,7 @@ const Feed = () => {
         posts.map((post) => {
           const userId = auth.currentUser.uid;
           const userHasLiked = post.likes?.includes(userId);
+          const userHasDisagreed = post.disagrees?.includes(userId);
 
           return (
             <div key={post.id} className="post-card">
@@ -127,10 +133,14 @@ const Feed = () => {
               <div className="interactive-section">
                 {post.category === 'Alert' && (
                   <div className="likes-section">
-                    <button onClick={() => handleLike(post.id, post.likes)} className={`like-btn ${userHasLiked ? 'liked' : ''}`}>
+                    <button onClick={() => handleVote(post, 'agree')} className={`like-btn ${userHasLiked ? 'liked' : ''}`}>
                       👍 Agree
                     </button>
-                    <span className="like-count">{post.likes?.length || 0} people agree</span>
+                    <span className="like-count">{post.likes?.length || 0}</span>
+                     <button onClick={() => handleVote(post, 'disagree')} className={`disagree-btn ${userHasDisagreed ? 'disagreed' : ''}`}>
+                      👎 Disagree
+                    </button>
+                    <span className="disagree-count">{post.disagrees?.length || 0}</span>
                   </div>
                 )}
 
