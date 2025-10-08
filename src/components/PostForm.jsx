@@ -145,7 +145,7 @@ const PostForm = () => {
             disabled={isUploading}
           />
           <button type="button" onClick={handleGetLocation} className="location-btn" disabled={isUploading}>
-            📍Location
+            📍 Current Location
           </button>
         </div>
         <div className="form-actions">
