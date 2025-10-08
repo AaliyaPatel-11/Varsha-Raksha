@@ -87,7 +87,7 @@ Residents of urban and suburban communities, especially in areas prone to monsoo
 
 ## 🖼️ Assets / Screenshots
 <p align="center">
-  <img src="src/assets/project_logo.png" alt="VarshaRaksha Logo" width="220" /><br/>
+  <img src="src/assets/logo.png" alt="VarshaRaksha Logo" width="220" /><br/>
   <img src="src/assets/community_feed.png" alt="Community Feed Page" width="600" /><br/>
   <img src="src/assets/live_map.png" alt="Live Map Page" width="600" /><br/>
   <img src="src/assets/official_info.png" alt="Official Info Page" width="600" /><br/>
