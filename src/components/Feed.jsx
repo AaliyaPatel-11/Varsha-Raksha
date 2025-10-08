@@ -37,15 +37,20 @@ const Feed = () => {
     e.preventDefault();
     const responseText = responseTexts[postId]?.trim();
     if (!responseText) return;
+
     const { uid, displayName } = auth.currentUser;
     const postRef = doc(db, 'posts', postId);
+
     const newResponse = {
       responderId: uid,
       responderName: displayName,
       text: responseText,
       createdAt: new Date(),
     };
-    await updateDoc(postRef, { responses: arrayUnion(newResponse) });
+
+    await updateDoc(postRef, {
+      responses: arrayUnion(newResponse)
+    });
     setResponseTexts(prev => ({ ...prev, [postId]: '' }));
   };
 
@@ -130,6 +135,7 @@ const Feed = () => {
                 )}
               </div>
 
+              {/* UPDATED: Simplified interactive section logic */}
               <div className="interactive-section">
                 {post.category === 'Alert' && (
                   <div className="likes-section">
@@ -144,31 +150,29 @@ const Feed = () => {
                   </div>
                 )}
 
-                {(post.category === 'Request' || post.category === 'Offer') && (
-                  <div className="responses-section">
-                    <h4>Responses</h4>
-                    <div className="response-list">
-                      {post.responses?.length > 0 ? (
-                        post.responses.map((res, index) => (
-                          <div key={index} className="response-item">
-                            <strong>{res.responderName}:</strong> {res.text}
-                          </div>
-                        ))
-                      ) : (
-                        <p className="no-responses">No responses yet.</p>
-                      )}
-                    </div>
-                    <form onSubmit={(e) => handleAddResponse(e, post.id)} className="response-form">
-                      <input
-                        type="text"
-                        placeholder="Write a response..."
-                        value={responseTexts[post.id] || ''}
-                        onChange={(e) => setResponseTexts(prev => ({ ...prev, [post.id]: e.target.value }))}
-                      />
-                      <button type="submit">Reply</button>
-                    </form>
+                <div className="responses-section">
+                  <h4>Responses</h4>
+                  <div className="response-list">
+                    {post.responses?.length > 0 ? (
+                      post.responses.map((res, index) => (
+                        <div key={index} className="response-item">
+                          <strong>{res.responderName}:</strong> {res.text}
+                        </div>
+                      ))
+                    ) : (
+                      <p className="no-responses">No responses yet.</p>
+                    )}
                   </div>
-                )}
+                  <form onSubmit={(e) => handleAddResponse(e, post.id)} className="response-form">
+                    <input
+                      type="text"
+                      placeholder="Write a response..."
+                      value={responseTexts[post.id] || ''}
+                      onChange={(e) => setResponseTexts(prev => ({ ...prev, [post.id]: e.target.value }))}
+                    />
+                    <button type="submit">Reply</button>
+                  </form>
+                </div>
               </div>
             </div>
           );

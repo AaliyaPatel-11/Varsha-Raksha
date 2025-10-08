@@ -15,7 +15,7 @@ const Profile = () => {
 
   const handleVote = async (post, voteType) => {
     const userId = auth.currentUser.uid;
-    const postRef = doc(db, 'posts', post.id); // Correctly use post.id
+    const postRef = doc(db, 'posts', post.id);
     const likes = post.likes || [];
     const disagrees = post.disagrees || [];
     const userHasLiked = likes.includes(userId);
@@ -155,24 +155,22 @@ const Profile = () => {
                     </div>
                   )}
 
-                  {(post.category === 'Request' || post.category === 'Offer') && (
-                    <div className="responses-section">
-                      <h4>Responses</h4>
-                      <div className="response-list">
-                        {post.responses?.length > 0 ? (
-                          post.responses.map((res, index) => (
-                            <div key={index} className="response-item"><strong>{res.responderName}:</strong> {res.text}</div>
-                          ))
-                        ) : (
-                          <p className="no-responses">No responses yet.</p>
-                        )}
-                      </div>
-                      <form onSubmit={(e) => handleAddResponse(e, post.id)} className="response-form">
-                        <input type="text" placeholder="Write a response..." value={responseTexts[post.id] || ''} onChange={(e) => setResponseTexts(prev => ({ ...prev, [post.id]: e.target.value }))} />
-                        <button type="submit">Reply</button>
-                      </form>
+                  <div className="responses-section">
+                    <h4>Responses</h4>
+                    <div className="response-list">
+                      {post.responses?.length > 0 ? (
+                        post.responses.map((res, index) => (
+                          <div key={index} className="response-item"><strong>{res.responderName}:</strong> {res.text}</div>
+                        ))
+                      ) : (
+                        <p className="no-responses">No responses yet.</p>
+                      )}
                     </div>
-                  )}
+                    <form onSubmit={(e) => handleAddResponse(e, post.id)} className="response-form">
+                      <input type="text" placeholder="Write a response..." value={responseTexts[post.id] || ''} onChange={(e) => setResponseTexts(prev => ({ ...prev, [post.id]: e.target.value }))} />
+                      <button type="submit">Reply</button>
+                    </form>
+                  </div>
                 </div>
               </div>
             );
