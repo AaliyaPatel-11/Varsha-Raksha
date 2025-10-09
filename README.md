@@ -68,7 +68,7 @@ Residents of urban and suburban communities, especially in areas prone to monsoo
 ---
 
 ## 📹 Demonstration Video
-▶️ [Demo Video Link](#)
+▶️ [Demo Video Link](https://www.youtube.com/watch?v=DiZklfN6KBA&t=29s)
 
 ---
 
